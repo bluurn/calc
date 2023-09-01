@@ -61,7 +61,7 @@ class Token {
 
 class TokenStream {
   public:
-    TokenStream(): full(false), buffer(0.0f) {}
+    TokenStream(std::istream& istream): is(istream), full(false), buffer(0.0f) {}
     Token get() {
       if(full) {
         full = false;
@@ -69,7 +69,7 @@ class TokenStream {
       }
 
       char ch;
-      std::cin >> ch;
+      is >> ch;
       switch(ch) {
         case ';':
         case 'q':
@@ -92,13 +92,17 @@ class TokenStream {
         case '8':
         case '9':
           {
-            std::cin.putback(ch);
+            is.putback(ch);
             double val;
-            std::cin >> val;
+            is >> val;
             return Token(val);
           }
         default:
-          error("Bad token");
+          {
+            std::stringstream errstr;
+            errstr << "Bad token: " << ch;
+            error(errstr.str());
+          }
       }
 
       return Token(0.0f); // exhaustive
@@ -111,14 +115,13 @@ class TokenStream {
     }
 
   private:
+    std::istream& is;
     bool full;
     Token buffer;
 };
 
-TokenStream ts;
-
-double term();
-double primary();
+double term(TokenStream& ts);
+double primary(TokenStream& ts);
 
 /*
  * Expression:
@@ -126,18 +129,18 @@ double primary();
  *    Expression "+" Term
  *    Expression "-" Term
  */
-double expression() {
-  double left = term();
+double expression(TokenStream& ts) {
+  double left = term(ts);
   Token t = ts.get();
   while(true) {
 
     switch (t.kind) {
       case Plus:  
-        left += term();
+        left += term(ts);
         t = ts.get();
         break;
       case Minus: 
-        left -= term();
+        left -= term(ts);
         t = ts.get();
         break;
       default:
@@ -153,18 +156,18 @@ double expression() {
  *    Term "*" Primary
  *    Term "/" Primary
  */
-double term() {
-  double left = primary();
+double term(TokenStream& ts) {
+  double left = primary(ts);
   Token t = ts.get();
   while (true) {
     switch (t.kind) {
       case Multiplication:
-        left *= primary();
+        left *= primary(ts);
         t = ts.get();
         break;
       case Division:
         {
-          double d = primary();
+          double d = primary(ts);
           if(d == 0) error("division by zero");
           left /= d;
           t = ts.get();
@@ -183,12 +186,12 @@ double term() {
  *    "(" Expression ")"
  */
 
-double primary() {
+double primary(TokenStream& ts) {
   Token t = ts.get();
   switch(t.kind) {
     case LeftParen: 
       {
-        double d = expression();
+        double d = expression(ts);
         t = ts.get();
         if (t.kind != RightParen) error("')' expected");
         return d;
@@ -201,7 +204,29 @@ double primary() {
   return 0; // exhaustive 
 }
 
+class Streamer {
+  public:
+    Streamer(std::istream& istr) : is(istr) {}
+    void read() {
+      std::string test;
+      is >> test;
+      std::cout << test;
+    }
+  private:
+    std::istream& is;
+};
+
 int main() {
+  
+  // std::string expr { "X2+2*2-3;" };
+  // std::istringstream ss(expr);
+  // TokenStream ts(ss);
+  // std::cout << expression(ts);
+  //
+  // return 0;
+
+  TokenStream ts(std::cin);
+
   try {
     double val = 0.0;
     while (true) {
@@ -211,7 +236,7 @@ int main() {
         case Print: std::cout << "=" << val << std::endl; break;
         default: {
                    ts.putback(t);
-                   val = expression();
+                   val = expression(ts);
                  }
       }
     }
