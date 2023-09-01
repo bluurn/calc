@@ -1,5 +1,5 @@
-#include "token.h"
-#include "token_kind.h"
+#include "token.hpp"
+#include "token_kind.hpp"
 
 Token::Token(double val): kind(Number), value(val) {};
 

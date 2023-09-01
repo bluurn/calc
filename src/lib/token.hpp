@@ -1,5 +1,5 @@
 #pragma once
-#include "token_kind.h"
+#include "token_kind.hpp"
 
 class Token {
   public:

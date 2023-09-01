@@ -1,6 +1,6 @@
 #include <sstream>
-#include "token_stream.h"
-#include "error.h"
+#include "token_stream.hpp"
+#include "error.hpp"
 
 
 TokenStream::TokenStream(std::istream& istream): is(istream), full(false), buffer(0.0f) {}

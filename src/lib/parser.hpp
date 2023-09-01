@@ -1,5 +1,5 @@
 #pragma once
-#include "token_stream.h"
+#include "token_stream.hpp"
 /*
  * Grammar:
  *

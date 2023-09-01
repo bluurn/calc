@@ -1,4 +1,4 @@
-#include "error.h"
+#include "error.hpp"
 #include <stdexcept>
 
 void error(const std::string& message) {

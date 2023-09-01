@@ -1,4 +1,4 @@
-#include "token_kind.h"
+#include "token_kind.hpp"
 
 TokenKind getTokenKind(char c) {
   switch (c) {
