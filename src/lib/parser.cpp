@@ -1,5 +1,5 @@
-#include "parser.h"
-#include "error.h"
+#include "parser.hpp"
+#include "error.hpp"
 
 /*
  * Expression:

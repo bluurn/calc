@@ -1,6 +1,6 @@
 #pragma once
 #include <istream>
-#include "token.h"
+#include "token.hpp"
 
 class TokenStream {
   public:

@@ -1,8 +1,8 @@
 #include <sstream>
 #include <string>
-#include "_deps/catch2-src/extras/catch_amalgamated.hpp"
-#include "token_stream.h"
-#include "parser.h"
+#include "../_deps/catch2-src/extras/catch_amalgamated.hpp"
+#include "./lib/token_stream.hpp"
+#include "./lib/parser.hpp"
 
 TEST_CASE("a test case for token stream") {
   {

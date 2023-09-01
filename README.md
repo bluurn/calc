@@ -4,6 +4,7 @@ A basic calculator inspired by a Programming Principles and Practice book by Bja
 ## how to run?
 
 ```console
+$ cmake -B .
 $ cmake --build .
 $ ./calc
 2+2*2;
@@ -12,6 +13,7 @@ $ ./calc
 ## Tests?
 
 ```console
+$ cmake -B .
 $ cmake --build .
 $ ./tests
 ```

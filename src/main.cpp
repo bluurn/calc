@@ -1,6 +1,6 @@
 #include <iostream>
-#include "parser.h"
-#include "token_stream.h"
+#include "lib/parser.hpp"
+#include "lib/token_stream.hpp"
 
 int main() {
   

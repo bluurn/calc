@@ -11,23 +11,15 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 
-set(CALC_CMAKE_SOURCES 
-  calc.cpp
-  error.cpp
-  parser.cpp
-  token.cpp
-  token_kind.cpp
-  token_stream.cpp
+set(CALC_DEPS_SOURCES
+  ./src/lib/error.cpp
+  ./src/lib/parser.cpp
+  ./src/lib/token.cpp
+  ./src/lib/token_kind.cpp
+  ./src/lib/token_stream.cpp
 )
-
-set(CALC_CMAKE_TEST_SOURCES
-  test.cpp
-  error.cpp
-  parser.cpp
-  token.cpp
-  token_kind.cpp
-  token_stream.cpp
-)
+set(CALC_CMAKE_SOURCES ./src/main.cpp ${CALC_DEPS_SOURCES})
+set(CALC_CMAKE_TEST_SOURCES ./src/test.cpp ${CALC_DEPS_SOURCES})
 
 add_executable(${PROJECT_NAME} ${CALC_CMAKE_SOURCES})
 add_executable(tests ${CALC_CMAKE_TEST_SOURCES})
