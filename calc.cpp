@@ -4,13 +4,6 @@
 
 int main() {
   
-  // std::string expr { "X2+2*2-3;" };
-  // std::istringstream ss(expr);
-  // TokenStream ts(ss);
-  // std::cout << expression(ts);
-  //
-  // return 0;
-
   TokenStream ts(std::cin);
 
   try {
