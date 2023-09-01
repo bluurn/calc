@@ -1,7 +1,7 @@
 TARGET = calc
 LIBS = -lm
 CC = g++
-CFLAGS = -g -Wall
+CFLAGS = -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -std=c++20 -g
 
 .PHONY: default all clean
 
